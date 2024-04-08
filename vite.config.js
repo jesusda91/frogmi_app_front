@@ -14,7 +14,7 @@ export default defineConfig({
 	},
 	plugins: [react(), envCompatible()],
 	server: {
-		port: process.env.PORT || 3000,
+		port: process.env.PORT || 4000,
 		host: true,
 	},
 });
