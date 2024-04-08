@@ -15,7 +15,7 @@ const Card = ({ feature }) => {
 					>
 						{feature.attributes.title}
 					</Typography>
-					<Typography color="textSecondary">
+					<Typography color="textSecondary" className="coordinates">
 						Coordenadas: {feature.attributes.coordinates.longitude},{" "}
 						{feature.attributes.coordinates.latitude}
 					</Typography>

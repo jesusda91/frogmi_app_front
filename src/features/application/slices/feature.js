@@ -53,7 +53,8 @@ const Feature = createSlice({
 			})
 			.addCase(fetchFeatures.fulfilled, (state, { payload }) => {
 				state.loading = false;
-				state.features = payload;
+				state.features = [...state.features, ...payload];
+				state.page = state.page + 1;
 			})
 			.addCase(createComment.pending, (state) => {
 				state.error = null;
@@ -65,12 +66,10 @@ const Feature = createSlice({
 			})
 			.addCase(createComment.fulfilled, (state, { payload }) => {
 				state.loading = false;
-				console.log("HERE", payload);
 				const feature = state.features.find(
 					(feature) => feature.id === payload.featureId,
 				);
 				if (feature) {
-					console.log("HERE", feature);
 					if (!feature.comments) {
 						feature.comments = [];
 					}

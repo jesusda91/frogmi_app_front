@@ -1,7 +1,16 @@
 .feature-card {
 	margin: 1rem;
-
-	.card-title {
+	.MuiCardContent-root {
+		min-height: 330px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		.MuiCardActions-root {
+			margin-top: auto;
+		}
+	}
+	.card-title, .coordinates {
 		text-wrap: wrap;
 		max-width: 300px;
 	}
