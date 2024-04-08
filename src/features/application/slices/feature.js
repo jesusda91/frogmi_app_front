@@ -1,55 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { postCreateComment } from "../../infrastructure/api";
+import { getFeatures, postCreateComment } from "../../infrastructure/api";
 
 export const initialState = {
 	features: [],
+	page: 1,
+	per_page: 12
 };
 
 export const fetchFeatures = createAsyncThunk(
 	"feature/fetchFeatures",
-	async (data, { rejectWithValue }) => {
+	async (data, { rejectWithValue, getState }) => {
 		try {
-			// await getFeatures;
-			// return await postRequestGenerateOpt({
-			// 	value: data?.email,
-			// 	method: 'email',
-			// });
-			return [
-				{
-					id: 1,
-					type: "feature",
-					attributes: {
-						external_id: "abc123",
-						magnitude: 5.0,
-						place: "Ciudad A",
-						time: "2024-04-05T12:30:00",
-						tsunami: false,
-						mag_type: "mw",
-						title: "Acontecimiento 1",
-						coordinates: {
-							longitude: -75.1667,
-							latitude: 39.9526,
-						},
-					},
-				},
-				{
-					id: 2,
-					type: "feature",
-					attributes: {
-						external_id: "xyz789",
-						magnitude: 4.2,
-						place: "Ciudad B",
-						time: "2024-04-05T15:45:00",
-						tsunami: true,
-						mag_type: "mb",
-						title: "Acontecimiento 2",
-						coordinates: {
-							longitude: -118.2437,
-							latitude: 34.0522,
-						},
-					},
-				},
-			];
+			const { feature: { page, per_page }} = getState();
+			const response = await getFeatures(page, per_page);
+			return response.data;
 		} catch (error) {
 			return rejectWithValue(error);
 		}
@@ -60,7 +24,7 @@ export const createComment = createAsyncThunk(
 	"feature/createComment",
 	async ({ featureId, body }, { rejectWithValue }) => {
 		try {
-			// await postCreateComment(featureId, body);
+			await postCreateComment(featureId, body);
 			return { featureId, body };
 		} catch (error) {
 			console.log("error", error);

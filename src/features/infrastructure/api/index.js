@@ -1,18 +1,20 @@
-import { handleResponse } from "../../../shared/application/helpers/api";
+import { handleResponse, headers } from "../../../shared/application/helpers/api";
 import { urlGetFeatures, urlPostCreateComment } from "./backendUrls";
 
-export const postCreateComment = (propertyId) => {
+export const postCreateComment = (featureId, body) => {
 	const requestOptions = {
-		method: 'GET',
+		method: 'POST',
+		headers: headers(),
+		body: JSON.stringify({body: body}),
 	};
 
-	return fetch(urlPostCreateComment(propertyId), requestOptions).then(handleResponse);
+	return fetch(urlPostCreateComment(featureId), requestOptions).then(handleResponse);
 };
 
-export const getFeatures = () => {
+export const getFeatures = (page, per_page) => {
 	const requestOptions = {
 		method: 'GET',
 	};
 
-	return fetch(urlGetFeatures, requestOptions).then(handleResponse);
+	return fetch(urlGetFeatures(page, per_page), requestOptions).then(handleResponse);
 };
